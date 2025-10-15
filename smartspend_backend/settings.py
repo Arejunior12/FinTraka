@@ -122,10 +122,33 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
 ]
 
-# Production settings
+# Add to the bottom of smartspend_backend/settings.py
 import os
 from decouple import config
 
+# Debug mode
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.github.dev', '.github.io']
+# Allowed hosts
+ALLOWED_HOSTS = [
+    '127.0.0.1', 
+    'localhost',
+    '.railway.app',
+    '.vercel.app'
+]
+
+# CORS settings for production
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://your-app.vercel.app",  # Replace with your actual Vercel URL
+]
+
+CORS_ALLOW_ALL_ORIGINS = not DEBUG  # Allow all in development only
+
+# Database for production (Railway provides DATABASE_URL)
+if 'DATABASE_URL' in os.environ:
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    }

@@ -1,10 +1,9 @@
 // SmartSpend Frontend Application
 class SmartSpendApp {
     constructor() {
-        this.apiBase = 'http://127.0.0.1:8000/api';
+        this.apiBase = 'https://fintraka-production.up.railway.app/api';
         this.token = localStorage.getItem('authToken');
         this.currentUser = null;
-        this.charts = {};
         this.init();
     }
 
